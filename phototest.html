@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>記録帳</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: url('parchment.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #2c1a0b;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: rgba(80, 0, 0, 0.8);
+      color: #f9e4bc;
+      padding: 30px 15px;
+      border-bottom: 3px solid #d4af37;
+    }
+
+    header h1 {
+      font-size: 2em;
+      margin: 0;
+    }
+
+    .carousel-container {
+      max-width: 800px;
+      margin: 30px auto;
+      position: relative;
+      background: rgba(255, 248, 220, 0.9);
+      border: 2px solid #8b4513;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      padding: 10px;
+    }
+
+    .carousel-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .button {
+      background-color: #8b0000;
+      color: #fff0e1;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #a30000;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>記録写真</h1>
+  </header>
+
+  <div class="carousel-container">
+    <img id="carousel-image" class="carousel-image" src="phototest/001.jpg" alt="記録画像">
+    <div>
+      <button class="button" onclick="prevImage()">← 前へ</button>
+      <button class="button" onclick="nextImage()">次へ →</button>
+    </div>
+  </div>
+
+  <script>
+    // 読み込む画像枚数（001.jpg ～ nnn.jpg）
+    const totalImages = 5; // 例：10枚なら001〜010.jpg
+    const imageFolder = 'phototest';
+    let currentIndex = 1;
+
+    function updateImage() {
+      const paddedIndex = String(currentIndex).padStart(3, '0');
+      const imagePath = `${imageFolder}/${paddedIndex}.jpg`;
+      document.getElementById('carousel-image').src = imagePath;
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex % totalImages) + 1;
+      updateImage();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 2 + totalImages) % totalImages + 1;
+      updateImage();
+    }
+
+    // 自動スライド（任意：コメントアウト可能）
+    setInterval(nextImage, 5000); // 5秒ごとに自動切り替え
+  </script>
+
+</body>
+</html>
