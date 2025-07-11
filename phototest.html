@@ -88,6 +88,48 @@
       border: 2px solid #8b0000;
       box-shadow: 0 0 4px rgba(0,0,0,0.6);
     }
+
+    .proclamation {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(250, 235, 200, 0.9);
+      border: 3px double #8b4513;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      font-size: 1.1em;
+      line-height: 1.8;
+      text-align: left;
+      font-family: 'Georgia', serif;
+      position: relative;
+    }
+    
+    .proclamation h2 {
+      font-size: 1.4em;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #5a1d0f;
+      border-bottom: 2px solid #a0522d;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    
+    .proclamation::before {
+      content: "✦";
+      font-size: 2em;
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      color: #8b0000;
+    }
+    
+    .proclamation p:first-letter {
+      font-size: 150%;
+      font-weight: bold;
+      float: left;
+      margin-right: 6px;
+      color: #800000;
+    }
   </style>
 </head>
 <body>
@@ -96,18 +138,21 @@
     <h1>活動状況</h1>
   </header>
 
-  <div>
-北の霧深き断崖にて、** 青翼の怪鳥〈ザラグ・フューム〉**が再び姿を現した。<br>
-その咆哮、嵐を呼び、村々に恐怖をもたらしておる。<br><br>
-
-これは単なる獣に非ず。かの翼には呪いが宿り、天より業火を降らすという。<br>
-されど我らが赤き誓い、民を守る剣にして盾たる者。恐れを胸に宿してはならぬ。<br><br>
-
-いざ立ち上がれ、勇敢なる団員たちよ。<br>
-焔の騎士は前に、風の斥候は影を駆け、聖なる祈りは刃を支えよ。<br>
-
-怪鳥を討ち、空を浄め、王国の空に再び暁をもたらすのだ！
-  </div>
+  <div class="proclamation">
+  <p>
+    北の霧深き断崖にて、<strong>青翼の怪鳥〈ボタン・スッピスピ〉</strong>が再び姿を現した。<br>
+    その咆哮、嵐を呼び、村々に恐怖をもたらしておる。
+  </p>
+  <p>
+    これは単なる獣に非ず。かの翼には呪いが宿り、天より業火を降らすという。<br>
+    されど我らが赤き誓い、民を守る剣にして盾たる者。恐れを胸に宿してはならぬ。
+  </p>
+  <p>
+    いざ立ち上がれ、勇敢なる団員たちよ。<br>
+    焔の騎士は前に、風の斥候は影を駆け、聖なる祈りは刃を支えよ。<br>
+    怪鳥を討ち、空を浄め、王国の空に再び暁をもたらすのだ！
+  </p>
+</div>
 
   <div class="carousel-container">
     <img id="carousel-image" class="carousel-image" src="phototest/001.jpg" alt="活動状況">
