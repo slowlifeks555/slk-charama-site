@@ -3,30 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>スプレッドシート表示</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f9f9f9;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px 12px;
-    }
-    th {
-      background-color: #eee;
-    }
-  </style>
+  <title>騎士団団員リスト</title>
+  <link rel="stylesheet" href="listcss.css">
 </head>
 <body>
 
-  <h1>キャラクターリスト（スプレッドシートから取得）</h1>
+  <h1>リヴァイレッド騎士団 団員一覧</h1>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="団員名や役職を検索…">
+  </div>
+
   <table id="data-table">
     <thead></thead>
     <tbody></tbody>
@@ -35,37 +22,75 @@
   <script>
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSASWUkUun878MnGC9vizrwupLmhvW0BvEe9cTVQ_J5QSnz5QYyNKSYJfiFOWgyei6lUBEns29ZUbyF/pub?gid=2&single=true&output=csv';
 
+    let tableData = [];
+    let sortColumn = -1;
+    let sortAsc = true;
+
     fetch(csvUrl)
       .then(response => response.text())
       .then(csv => {
-        const rows = csv.split('\n').map(row => row.split(','));
-        const thead = document.querySelector('#data-table thead');
-        const tbody = document.querySelector('#data-table tbody');
-
-        // ヘッダー行
-        const headerRow = document.createElement('tr');
-        rows[0].forEach(cell => {
-          const th = document.createElement('th');
-          th.textContent = cell.trim();
-          headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-
-        // データ行
-        for (let i = 1; i < rows.length; i++) {
-          if (rows[i].length === 1 && rows[i][0] === '') continue; // 空行スキップ
-          const tr = document.createElement('tr');
-          rows[i].forEach(cell => {
-            const td = document.createElement('td');
-            td.textContent = cell.trim();
-            tr.appendChild(td);
-          });
-          tbody.appendChild(tr);
-        }
-      })
-      .catch(error => {
-        console.error('CSVの取得に失敗しました:', error);
+        const rows = csv.trim().split('\n').map(row => row.split(','));
+        tableData = rows;
+        renderTable(rows);
       });
+
+    function renderTable(data) {
+      const thead = document.querySelector('#data-table thead');
+      const tbody = document.querySelector('#data-table tbody');
+      thead.innerHTML = '';
+      tbody.innerHTML = '';
+
+      const headerRow = document.createElement('tr');
+      data[0].forEach((header, index) => {
+        const th = document.createElement('th');
+        th.textContent = header.trim();
+        th.addEventListener('click', () => sortTableBy(index));
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      for (let i = 1; i < data.length; i++) {
+        const row = document.createElement('tr');
+        data[i].forEach(cell => {
+          const td = document.createElement('td');
+          td.textContent = cell.trim();
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      }
+    }
+
+    function sortTableBy(colIndex) {
+      if (sortColumn === colIndex) {
+        sortAsc = !sortAsc;
+      } else {
+        sortColumn = colIndex;
+        sortAsc = true;
+      }
+
+      const header = tableData[0];
+      const body = tableData.slice(1);
+
+      body.sort((a, b) => {
+        const valA = a[colIndex].toLowerCase();
+        const valB = b[colIndex].toLowerCase();
+        if (valA < valB) return sortAsc ? -1 : 1;
+        if (valA > valB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      renderTable([header, ...body]);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const keyword = this.value.toLowerCase();
+      const filtered = [tableData[0]].concat(
+        tableData.slice(1).filter(row =>
+          row.some(cell => cell.toLowerCase().includes(keyword))
+        )
+      );
+      renderTable(filtered);
+    });
   </script>
 
 </body>
