@@ -1,3 +1,4 @@
+/* ベース設定 */
 body {
   font-family: 'Georgia', serif;
   background: url('parchment.jpg') no-repeat center center fixed;
@@ -8,11 +9,12 @@ body {
   line-height: 1.8;
 }
 
+/* ヘッダー */
 header {
   background-color: rgba(80, 0, 0, 0.8);
   color: #f9e4bc;
   text-align: center;
-  padding: 30px 10px;
+  padding: 30px 15px;
   border-bottom: 3px solid #d4af37;
 }
 
@@ -26,6 +28,7 @@ header h1 {
   font-size: 1.2em;
 }
 
+/* メイン */
 main {
   max-width: 800px;
   margin: 40px auto;
@@ -66,10 +69,51 @@ ul {
   background-color: #a30000;
 }
 
+/* フッター */
 footer {
   text-align: center;
   padding: 20px;
   background-color: #4b2b0b;
   color: #fff4e1;
   font-size: 0.9em;
+}
+
+/* --- レスポンシブ対応 --- */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  main {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .button {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  header {
+    padding: 20px 10px;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  ul {
+    padding-left: 15px;
+  }
 }
