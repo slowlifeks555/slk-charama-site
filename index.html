@@ -42,19 +42,26 @@
       </ul>
     </section>
 
-    <section>
+   <section>
       <h2>◆ 応募の手引き ◆</h2>
       <p>
         騎士団本部の掲示板、または使い魔伝書より申請可能。<br>
         下記の「応募する」より、申し出よ。
       </p>
-      <a href="#" class="button">応募する</a>
+      <a href="#" id="apply-button" class="button">応募する</a>
     </section>
   </main>
 
   <footer>
     <p>© リヴァイレッド騎士団｜王国歴1125年</p>
   </footer>
+
+  <script>
+    document.getElementById('apply-button').addEventListener('click', function (e) {
+      e.preventDefault();
+      alert('使い魔が申請書を王城へ届けに飛び立ちました！\n数日中にふくろう便にて返答が届くでしょう。');
+    });
+  </script>
 
 </body>
 </html>
