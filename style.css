@@ -78,6 +78,29 @@ footer {
   font-size: 0.9em;
 }
 
+/* 通知ボックス */
+.notification {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(139, 0, 0, 0.9);
+  color: #fff4e1;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 1000;
+}
+
+.notification.show {
+  bottom: 30px;
+  opacity: 1;
+}
+
 /* --- レスポンシブ対応 --- */
 @media screen and (max-width: 768px) {
   header h1 {
@@ -116,28 +139,5 @@ footer {
   ul {
     padding-left: 15px;
   }
-}
-
-/* 通知ボックス */
-.notification {
-  position: fixed;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(139, 0, 0, 0.9);
-  color: #fff4e1;
-  padding: 15px 30px;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-family: 'Georgia', serif;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  opacity: 0;
-  transition: all 0.5s ease;
-  z-index: 1000;
-}
-
-.notification.show {
-  bottom: 30px;
-  opacity: 1;
 }
 
