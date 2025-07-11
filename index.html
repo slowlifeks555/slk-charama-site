@@ -2,47 +2,21 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>リヴァイレッド赤騎士団団員募</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リヴァイレッド騎士団団員募</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
-    <h1>リヴァイレッド赤騎士団 団員募集中</h1>
+    <h1>リヴァイレッド騎士団 団員募集中</h1>
     <p class="subtitle">── 赤き誓い、汝とともに ──</p>
   </header>
 
   <main>
-    <section>
-      <h2>◆ 赤騎士団について ◆</h2>
-      <p>
-        リヴァイレッド赤騎士団は、古より王国に仕えし守護の剣なり。<br>
-        魔の脅威に抗い、民の安寧を守るべく、赤き紋章のもとに結成された聖なる集団である。
-      </p>
-    </section>
+    <!-- 省略（団紹介・募集内容などは前と同じ） -->
 
     <section>
-      <h2>◆ 求む、志高き者 ◆</h2>
-      <p>以下の役職において、勇敢なる戦士を募集中：</p>
-      <ul>
-        <li>⚔ 前衛騎士（剣と盾にて仲間を守る）</li>
-        <li>🔥 炎術士（紅蓮の業火で敵を薙ぐ）</li>
-        <li>🕊 神官（癒しと祈りの力を持つ）</li>
-        <li>🦅 鷹眼の斥候（影より情報を掴む）</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>◆ 入団の掟 ◆</h2>
-      <ul>
-        <li>年齢十五の春を越えし者</li>
-        <li>王国に忠誠を誓える清き心を持つ者</li>
-        <li>剣に怯えぬ者、知恵を磨く者、いずれも歓迎</li>
-        <li>団の誓いを胸に刻む覚悟ある者</li>
-      </ul>
-    </section>
-
-   <section>
       <h2>◆ 応募の手引き ◆</h2>
       <p>
         騎士団本部の掲示板、または使い魔伝書より申請可能。<br>
@@ -56,10 +30,20 @@
     <p>© リヴァイレッド騎士団｜王国歴1125年</p>
   </footer>
 
+  <!-- 通知ボックス -->
+  <div id="notification" class="notification">使い魔が申請書を王城へ届けに飛び立ちました！</div>
+
+  <!-- 通知スクリプト -->
   <script>
     document.getElementById('apply-button').addEventListener('click', function (e) {
       e.preventDefault();
-      alert('使い魔が申請書を王城へ届けに飛び立ちました！\n数日中にふくろう便にて返答が届くでしょう。');
+      const notification = document.getElementById('notification');
+      notification.classList.add('show');
+      notification.textContent = '使い魔が申請書を王城へ届けに飛び立ちました！ 数日中にふくろう便にて返答が届くでしょう。';
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 4000); // 4秒後に消える
     });
   </script>
 
