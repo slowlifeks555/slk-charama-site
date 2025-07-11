@@ -64,24 +64,34 @@
     }
 
     function sortTableBy(colIndex) {
-      if (sortColumn === colIndex) {
-        sortAsc = !sortAsc;
-      } else {
-        sortColumn = colIndex;
-        sortAsc = true;
-      }
+  if (sortColumn === colIndex) {
+    sortAsc = !sortAsc;
+  } else {
+    sortColumn = colIndex;
+    sortAsc = true;
+  }
 
-      const header = tableData[0];
-      const body = tableData.slice(1);
+  const header = tableData[0];
+  const body = tableData.slice(1);
 
-      body.sort((a, b) => {
-        const valA = a[colIndex].toLowerCase();
-        const valB = b[colIndex].toLowerCase();
-        return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-      });
+  const isNumeric = header[colIndex].match(/(No|番号|ID)/i); // 「No」「登録No」「ID」などに反応
 
-      renderTable([header, ...body]);
+  body.sort((a, b) => {
+    const valA = a[colIndex].trim();
+    const valB = b[colIndex].trim();
+
+    if (isNumeric) {
+      const numA = parseInt(valA, 10);
+      const numB = parseInt(valB, 10);
+      if (isNaN(numA) || isNaN(numB)) return valA.localeCompare(valB);
+      return sortAsc ? numA - numB : numB - numA;
+    } else {
+      return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
     }
+  });
+
+  renderTable([header, ...body]);
+}
 
     document.getElementById('searchInput').addEventListener('input', function () {
       const keyword = this.value.toLowerCase();
