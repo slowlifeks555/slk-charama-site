@@ -1,17 +1,23 @@
+/* ========== 基本設定 ========== */
 body {
   font-family: 'Georgia', serif;
   background: url('parchment.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #3a1f0d;
   padding: 30px;
+  margin: 0;
+  box-sizing: border-box;
 }
 
+/* ========== タイトル ========== */
 h1 {
   text-align: center;
   font-size: 2.2em;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #4b2e13;
 }
 
+/* ========== 検索ボックス ========== */
 .search-box {
   text-align: center;
   margin-bottom: 20px;
@@ -27,12 +33,20 @@ h1 {
   font-size: 1em;
 }
 
+/* ========== テーブルラッパー ========== */
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ========== テーブル本体 ========== */
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: rgba(255, 248, 220, 0.95);
   border: 2px solid #8b4513;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  min-width: 600px; /* 横スクロール可能にするため */
 }
 
 th, td {
@@ -63,20 +77,24 @@ tr:hover {
   background-color: #f0d9a8;
 }
 
-/* テーブルを横スクロール可能にするラッパー */
-.table-container {
-  overflow-x: auto;
-  max-width: 100%;
+/* ========== スクロールバー対応 (一部ブラウザ) ========== */
+.table-container::-webkit-scrollbar {
+  height: 8px;
 }
 
-/* 小さい画面向けに全体サイズと文字調整 */
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #8b4513;
+  border-radius: 4px;
+}
+
+/* ========== メディアクエリ（タブレット以下） ========== */
 @media screen and (max-width: 768px) {
   h1 {
-    font-size: 1.6em;
+    font-size: 1.8em;
   }
 
   .search-box input {
-    width: 95%;
+    width: 90%;
     font-size: 1em;
   }
 
@@ -84,23 +102,38 @@ tr:hover {
     padding: 10px;
     font-size: 0.95em;
   }
+
+  table {
+    font-size: 0.95em;
+  }
 }
 
+/* ========== メディアクエリ（スマホ） ========== */
 @media screen and (max-width: 480px) {
-  h1 {
-    font-size: 1.4em;
-    line-height: 1.4em;
+  body {
+    padding: 20px 10px;
   }
 
-  .search-box {
-    margin-bottom: 15px;
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.4;
+  }
+
+  .search-box input {
+    width: 100%;
+    font-size: 0.95em;
   }
 
   th::after {
-    content: "";
+    display: none; /* 矢印非表示で省スペース */
   }
 
   table {
     font-size: 0.9em;
+    min-width: 100%; /* 横スクロールで調整 */
+  }
+
+  th, td {
+    padding: 8px;
   }
 }
