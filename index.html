@@ -62,17 +62,34 @@
 
   <!-- 通知スクリプト -->
   <script>
-    document.getElementById('apply-button').addEventListener('click', function (e) {
-      e.preventDefault();
-      const notification = document.getElementById('notification');
-      notification.classList.add('show');
-      notification.textContent = '使い魔が申請書を王城へ届けに飛び立ちました！ 数日中にふくろう便にて返答が届くでしょう。';
+  const messages = [
+    '使い魔が申請書を王城へ届けに飛び立ちました！ 数日中にふくろう便にて返答が届くでしょう。',
+    '伝書鳩が赤き紋章を携えて空へと舞いました。しばしの間、お待ちを。',
+    '魔法通信陣が発動しました。審査は時の塔にて開始されます。',
+    '団長が巻物を受け取り、重々しくうなずいた……。',
+    '騎士団の火印があなたの名を記録しました。運命の扉は開かれん。',
+    '霊樹の葉がざわめき、入団の兆しを告げています。'
+  ];
 
-      setTimeout(() => {
-        notification.classList.remove('show');
-      }, 4000); // 4秒後に消える
-    });
-  </script>
+  const button = document.getElementById('apply-button');
+  const notification = document.getElementById('notification');
+
+  button.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // ランダムなメッセージを選ぶ
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    notification.textContent = randomMessage;
+
+    // 表示
+    notification.classList.add('show');
+
+    // 4秒後に非表示
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 4000);
+  });
+</script>
 
 </body>
 </html>
