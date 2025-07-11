@@ -44,3 +44,77 @@
       width: 100%;
       max-width: 600px;
       margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+    }
+
+    .spin {
+      animation: spinEffect 0.6s ease;
+    }
+
+    @keyframes spinEffect {
+      0%   { transform: rotateY(0deg); }
+      50%  { transform: rotateY(90deg); }
+      100% { transform: rotateY(0deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>古の水晶塔 おみくじ占い</h1>
+  <button class="button" onclick="drawFortune()">おみくじを引く</button>
+  <div id="fortune-result" class="result">結果がここに表示されます。</div>
+
+  <script>
+    const fortunes = [
+      "【天運の導き】全てがそなたの思うままに動く一日となるだろう。",
+      "【冥界の静寂】今日は動かず、内にこもることが吉と出る。",
+      "【竜神の息吹】試練の中にこそ、真の祝福がある。",
+      "【炎の祝福】勇気ある行動が運命を切り開く鍵となる。",
+      "【氷結の加護】冷静な判断が幸運をもたらす。",
+      "【風のささやき】新しい出会いが風に乗って訪れる。",
+      "【闇の試練】目に見えぬ敵に注意せよ。信念を持って進め。",
+      "【星詠みの導き】夜空を見上げよ。希望の兆しがそこにある。",
+      "【剣聖の刻印】行動すれば勝機あり。怯むな。",
+      "【妖精の微笑み】小さな幸せが身の回りに満ちていく。",
+      "【古竜の眼差し】遠くを見よ。焦らず進め。",
+      "【封印の解放】今まで閉ざされていたものが動き出す。",
+      "【忘却の霧】大事なものを見失わぬよう気をつけよ。",
+      "【雷鳴の予兆】突然の出来事に備え、心を鍛えよ。",
+      "【光の祝詞】誰かの助けがそなたを導く。",
+      "【死神の足音】無理をせず、今日は慎重に過ごすべし。",
+      "【女神の慈悲】思いやりがさらなる運を引き寄せる。",
+      "【獣王の鼓動】本能に従って行動すると良い日。",
+      "【時の迷宮】決断の遅れが運命を左右する。",
+      "【魔道の導き】知識が鍵となる。学びに吉あり。",
+      "【千年樹の囁き】古きものに触れると幸運が宿る。",
+      "【月の祈り】静かな時間の中にこそ答えがある。",
+      "【白翼の来訪】思いがけぬ助けが訪れる予兆。",
+      "【漆黒の扉】新たな可能性が目の前に開かれる。",
+      "【紅蓮の決意】強い意志が障害を焼き尽くす。",
+      "【影の契約】慎重に、人を選べ。",
+      "【神託の光】心の声に従え。直感が真実を示す。",
+      "【黄金の兆し】金運が上昇する。財布を大切に。",
+      "【霧の門番】迷ったときは一歩下がって見直すこと。",
+      "【蒼き盾の加護】仲間と協力することで大きな成果を得る。"
+    ];
+
+    function drawFortune() {
+      const resultBox = document.getElementById("fortune-result");
+
+      // アニメーション用クラスを一度外して再追加
+      resultBox.classList.remove("spin");
+      void resultBox.offsetWidth; // リフローを強制してアニメーションを再適用
+      resultBox.classList.add("spin");
+
+      // 結果表示はアニメーション途中に遅延させて変更
+      setTimeout(() => {
+        const index = Math.floor(Math.random() * fortunes.length);
+        resultBox.textContent = fortunes[index];
+      }, 300); // アニメの途中（0.6秒中の半分）で変更
+    }
+  </script>
+
+</body>
+</html>
