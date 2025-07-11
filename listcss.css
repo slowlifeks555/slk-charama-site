@@ -1,3 +1,68 @@
+body {
+  font-family: 'Georgia', serif;
+  background: url('parchment.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #3a1f0d;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+.search-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border: 2px solid #8b4513;
+  border-radius: 8px;
+  background-color: #fff8dc;
+  font-size: 1em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 248, 220, 0.95);
+  border: 2px solid #8b4513;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+th, td {
+  border: 1px solid #a0522d;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #deb887;
+  cursor: pointer;
+  position: relative;
+}
+
+th::after {
+  content: "⇅";
+  font-size: 0.8em;
+  position: absolute;
+  right: 10px;
+  color: #4b2e13;
+}
+
+tr:nth-child(even) {
+  background-color: #f5e9d4;
+}
+
+tr:hover {
+  background-color: #f0d9a8;
+}
+
 /* テーブルを横スクロール可能にするラッパー */
 .table-container {
   overflow-x: auto;
