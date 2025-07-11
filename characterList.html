@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>スプレッドシート表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>キャラクターリスト（スプレッドシートから取得）</h1>
+  <table id="data-table">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSASWUkUun878MnGC9vizrwupLmhvW0BvEe9cTVQ_J5QSnz5QYyNKSYJfiFOWgyei6lUBEns29ZUbyF/pub?gid=2&single=true&output=csv';
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(csv => {
+        const rows = csv.split('\n').map(row => row.split(','));
+        const thead = document.querySelector('#data-table thead');
+        const tbody = document.querySelector('#data-table tbody');
+
+        // ヘッダー行
+        const headerRow = document.createElement('tr');
+        rows[0].forEach(cell => {
+          const th = document.createElement('th');
+          th.textContent = cell.trim();
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // データ行
+        for (let i = 1; i < rows.length; i++) {
+          if (rows[i].length === 1 && rows[i][0] === '') continue; // 空行スキップ
+          const tr = document.createElement('tr');
+          rows[i].forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell.trim();
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        }
+      })
+      .catch(error => {
+        console.error('CSVの取得に失敗しました:', error);
+      });
+  </script>
+
+</body>
+</html>
