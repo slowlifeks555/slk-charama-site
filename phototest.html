@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>記録帳</title>
+  <title>リヴァイレッド騎士団 活動状況</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -30,8 +30,7 @@
     .carousel-container {
       max-width: 800px;
       margin: 30px auto;
-      position: relative;
-      background: rgba(255, 248, 220, 0.9);
+      background: rgba(255, 248, 220, 0.95);
       border: 2px solid #8b4513;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
@@ -43,6 +42,12 @@
       max-height: 500px;
       object-fit: contain;
       border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .carousel-image.show {
+      opacity: 1;
     }
 
     .button {
@@ -60,34 +65,101 @@
     .button:hover {
       background-color: #a30000;
     }
+
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      gap: 6px;
+    }
+
+    .thumbnail {
+      width: 60px;
+      height: 45px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border 0.3s ease;
+    }
+
+    .thumbnail.active {
+      border: 2px solid #8b0000;
+      box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>活動記録</h1>
+    <h1>活動状況</h1>
   </header>
 
+  <div>
+北の霧深き断崖にて、** 青翼の怪鳥〈ザラグ・フューム〉**が再び姿を現した。<br>
+その咆哮、嵐を呼び、村々に恐怖をもたらしておる。<br><br>
+
+これは単なる獣に非ず。かの翼には呪いが宿り、天より業火を降らすという。<br>
+されど我らが赤き誓い、民を守る剣にして盾たる者。恐れを胸に宿してはならぬ。<br><br>
+
+いざ立ち上がれ、勇敢なる団員たちよ。<br>
+焔の騎士は前に、風の斥候は影を駆け、聖なる祈りは刃を支えよ。<br>
+
+怪鳥を討ち、空を浄め、王国の空に再び暁をもたらすのだ！
+  </div>
+
   <div class="carousel-container">
-    <img id="carousel-image" class="carousel-image" src="phototest/001.jpg" alt="記録画像">
+    <img id="carousel-image" class="carousel-image" src="phototest/001.jpg" alt="活動状況">
     <div>
       <button class="button" onclick="prevImage()">← 前へ</button>
       <button class="button" onclick="nextImage()">次へ →</button>
     </div>
+    <div class="thumbnails" id="thumbnails"></div>
   </div>
 
-  <a href="index.html">戻る</a>
+  <div><a href="index.html">戻る</a></div>
 
   <script>
-    // 読み込む画像枚数（001.jpg ～ nnn.jpg）
-    const totalImages = 5; // 例：10枚なら001〜010.jpg
+    const totalImages = 5; // 画像枚数を指定（001.jpg〜010.jpg）
     const imageFolder = 'phototest';
     let currentIndex = 1;
+
+    const mainImage = document.getElementById('carousel-image');
+    const thumbnailsContainer = document.getElementById('thumbnails');
+
+    // 初期化
+    function initCarousel() {
+      for (let i = 1; i <= totalImages; i++) {
+        const padded = String(i).padStart(3, '0');
+        const thumb = document.createElement('img');
+        thumb.src = `${imageFolder}/${padded}.jpg`;
+        thumb.classList.add('thumbnail');
+        if (i === currentIndex) thumb.classList.add('active');
+        thumb.dataset.index = i;
+        thumb.addEventListener('click', () => {
+          currentIndex = i;
+          updateImage();
+        });
+        thumbnailsContainer.appendChild(thumb);
+      }
+      updateImage();
+    }
 
     function updateImage() {
       const paddedIndex = String(currentIndex).padStart(3, '0');
       const imagePath = `${imageFolder}/${paddedIndex}.jpg`;
-      document.getElementById('carousel-image').src = imagePath;
+
+      mainImage.classList.remove('show'); // フェードアウト
+      setTimeout(() => {
+        mainImage.src = imagePath;
+        mainImage.onload = () => mainImage.classList.add('show'); // フェードイン
+      }, 100);
+
+      // サムネイルの選択状態を更新
+      document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.toggle('active', parseInt(thumb.dataset.index) === currentIndex);
+      });
     }
 
     function nextImage() {
@@ -100,8 +172,22 @@
       updateImage();
     }
 
-    // 自動スライド（任意：コメントアウト可能）
-    setInterval(nextImage, 5000); // 5秒ごとに自動切り替え
+    // スワイプ対応
+    let startX = 0;
+    mainImage.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+    mainImage.addEventListener('touchend', e => {
+      const diffX = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diffX) > 50) {
+        diffX < 0 ? nextImage() : prevImage();
+      }
+    });
+
+    // 自動スライド（任意）
+    setInterval(nextImage, 8000);
+
+    initCarousel();
   </script>
 
 </body>
